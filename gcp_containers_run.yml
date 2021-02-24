@@ -1,0 +1,64 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: validator
+  namespace: '101321122935'
+  selfLink: /apis/serving.knative.dev/v1/namespaces/101321122935/services/validator
+  uid: 4d2c745d-3c81-4643-9f65-279f6255ac15
+  resourceVersion: AAW8FZF6gPM
+  generation: 1
+  creationTimestamp: '2021-02-24T14:06:17.862185Z'
+  labels:
+    cloud.googleapis.com/location: australia-southeast1
+  annotations:
+    run.googleapis.com/client-name: cloud-console
+    serving.knative.dev/creator: lee.y.y.you@gmail.com
+    serving.knative.dev/lastModifier: lee.y.y.you@gmail.com
+    client.knative.dev/user-image: gcr.io/buoyant-braid-242200/phonenum_server@sha256:2a69a04d7f24ef54c2779faca2f44229a11ea7eb69b0d6ebff9b7b2bbbb63dda
+    run.googleapis.com/launch-stage: BETA
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+spec:
+  template:
+    metadata:
+      name: validator-00001-qip
+      annotations:
+        run.googleapis.com/client-name: cloud-console
+        autoscaling.knative.dev/maxScale: '5'
+        run.googleapis.com/sandbox: gvisor
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      serviceAccountName: 101321122935-compute@developer.gserviceaccount.com
+      containers:
+      - image: gcr.io/buoyant-braid-242200/phonenum_server@sha256:2a69a04d7f24ef54c2779faca2f44229a11ea7eb69b0d6ebff9b7b2bbbb63dda
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 256Mi
+  traffic:
+  - percent: 100
+    latestRevision: true
+status:
+  observedGeneration: 1
+  conditions:
+  - type: Ready
+    status: 'True'
+    lastTransitionTime: '2021-02-24T14:08:24.613107Z'
+  - type: ConfigurationsReady
+    status: 'True'
+    lastTransitionTime: '2021-02-24T14:08:24.511813Z'
+  - type: RoutesReady
+    status: 'True'
+    lastTransitionTime: '2021-02-24T14:08:24.613107Z'
+  latestReadyRevisionName: validator-00001-qip
+  latestCreatedRevisionName: validator-00001-qip
+  traffic:
+  - revisionName: validator-00001-qip
+    percent: 100
+    latestRevision: true
+  url: https://validator-tzqa2hff2q-ts.a.run.app
+  address:
+    url: https://validator-tzqa2hff2q-ts.a.run.app
