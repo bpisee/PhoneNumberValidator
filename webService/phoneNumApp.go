@@ -42,12 +42,18 @@ func phoneNumberHandler(res http.ResponseWriter, req *http.Request) {
 	if len(phoneNumStr) > 0 {
 		phoneNumStr = strings.ReplaceAll(phoneNumStr, " ", "")
 
-		reg := regexp.MustCompile(REGULAR_STR)
-		isValid = reg.MatchString(phoneNumStr)
+		isValid = verifyPhoneNumber(phoneNumStr)
 	}
 
 	resJsonMap := map[string]interface{}{RES_NAME_: isValid}
 	logger.Info.Println("-->Result for the phone number validator:", resJsonMap)
 
 	SendResponse(res, resJsonMap)
+}
+
+var reg = regexp.MustCompile(REGULAR_STR)
+
+// verify a international phone number
+func verifyPhoneNumber(phoneNumStr string) bool {
+	return reg.MatchString(phoneNumStr)
 }

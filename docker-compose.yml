@@ -9,5 +9,5 @@ services:
      ports:
        - "80:8080"
      restart: always
-     container_name: phonenum_server_dev_container
+     container_name: phonenum_server_dev_container_1
      image: phonenum_server:dev
