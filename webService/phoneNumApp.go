@@ -28,7 +28,18 @@ func init() {
 func phoneNumberHandler(res http.ResponseWriter, req *http.Request) {
 	logger.Info.Println("-->URL :", req.URL)
 
-	resJsonMap := map[string]interface{}{RES_NAME_: false}
+	phoneNumStr := req.FormValue(URL_QUERIES_KEY)
+	logger.Debug.Printf("-->phoneNumber %x:", phoneNumStr)
+
+	isValid := false
+	if len(phoneNumStr) > 0 {
+		phoneNumStr = strings.ReplaceAll(phoneNumStr, " ", "")
+
+		reg := regexp.MustCompile(REGULAR_STR)
+		isValid = reg.MatchString(phoneNumStr)
+	}
+
+	resJsonMap := map[string]interface{}{RES_NAME_: isValid}
 	logger.Info.Println("-->Result for the phone number validator:", resJsonMap)
 
 	SendResponse(res, resJsonMap)
