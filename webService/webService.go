@@ -52,3 +52,22 @@ func toJsonData(mapData interface{}) ([]byte, error) {
 
 	return resJsonData, nil
 }
+
+type httpHandler func(http.ResponseWriter, *http.Request)
+
+func GetHandler(handlerName string) httpHandler {
+	logger.Info.Println("Init Handler:" + handlerName)
+
+	switch handlerName {
+	case PHONE_HANDLER_NAME:
+		return phoneNumberHandler
+	default:
+		return defaultHandler
+	}
+}
+
+func defaultHandler(res http.ResponseWriter, req *http.Request) {
+	logger.Info.Println("Default Handler Started...")
+
+	logger.Info.Println("Default Handler Ended")
+}
