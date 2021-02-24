@@ -1,0 +1,11 @@
+FROM phonenum_server:dev as builder
+
+FROM alpine:latest 
+
+COPY --from=builder /app/phoneNumberServer  /root/phoneNumberServer
+
+RUN apk --no-cache add ca-certificates
+
+EXPOSE 8080
+
+ENTRYPOINT /root/phoneNumberServer
