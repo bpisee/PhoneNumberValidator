@@ -11,7 +11,7 @@ import (
 
 const (
 	//Valid phone number patterns, it will be put into a config file.
-	REGULAR_STR = "^(64|0064|\\+64|0061|061|\\+61|0086|086|\\+86)\\d{8,10}$"
+	REGULAR_STR = "^(64|0064|\\+64|0061|61|\\+61|0086|86|\\+86)\\d{8,10}$"
 
 	PHONE_HANDLER_NAME = "phoneNumber"
 	URL_QUERIES_KEY    = "number"
@@ -36,7 +36,6 @@ func phoneNumberHandler(res http.ResponseWriter, req *http.Request) {
 	logger.Info.Println("-->URL :", req.URL)
 
 	phoneNumStr := req.FormValue(URL_QUERIES_KEY)
-	logger.Debug.Printf("-->phoneNumber %x:", phoneNumStr)
 
 	isValid := false
 	if len(phoneNumStr) > 0 {
@@ -46,7 +45,7 @@ func phoneNumberHandler(res http.ResponseWriter, req *http.Request) {
 	}
 
 	resJsonMap := map[string]interface{}{RES_NAME_: isValid}
-	logger.Info.Println("-->Result for the phone number validator:", resJsonMap)
+	logger.Info.Println("-->Result from the phone number validator:", resJsonMap)
 
 	SendResponse(res, resJsonMap)
 }
